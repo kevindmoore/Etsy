@@ -44,11 +44,14 @@ class ListingAdapter : RecyclerView.Adapter<ListingAdapter.ListingViewHolder>() 
 
     // Set the title & image
     override fun onBindViewHolder(holder: ListingViewHolder, position: Int) {
-        val listing = listings[position]
-        holder.titleView.text = listing.title
-        Glide.with(holder.titleView.context)
-                .load(listing.mainImage.url_75x75)
-                .into(holder.imageView)
+        if (position < listings.size) {
+            val listing = listings[position]
+            holder.titleView.text = listing.title
+            Glide.with(holder.titleView.context).load(listing.mainImage.url_75x75).into(holder.imageView)
+        } else {
+            holder.titleView.text = "Empty"
+            holder.imageView.setImageResource(0)
+        }
     }
 
     /**
